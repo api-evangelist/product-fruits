@@ -1,0 +1,77 @@
+aid: product-fruits
+name: Product Fruits
+description: >-
+  Product Fruits is an AI-powered product adoption platform that enables SaaS
+  teams to build in-app onboarding tours, checklists, tooltips, announcements,
+  NPS surveys, and user segmentation without requiring developer resources. The
+  platform offers a REST API and JavaScript API for programmatic control of
+  onboarding flows, user identification, event tracking, knowledge base
+  management, and feedback collection.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/product-fruits/refs/heads/main/apis.yml
+created: '2026-06-13'
+modified: '2026-06-13'
+specificationVersion: '0.19'
+tags:
+  - Product Adoption
+  - User Onboarding
+  - In-App Guidance
+  - Checklists
+  - NPS Surveys
+  - Announcements
+  - User Segmentation
+  - SaaS
+apis:
+  - aid: product-fruits:product-fruits-rest-api
+    name: Product Fruits REST API
+    description: >-
+      REST API for managing users, tracking custom events, managing knowledge
+      base content, collecting feedback, and controlling onboarding flows
+      programmatically. Supports user identification (upsert), event tracking,
+      survey responses, and knowledge base article and category management.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://help.productfruits.com/en/article/rest-api-authentication
+    baseURL: https://api.productfruits.com
+    tags:
+      - REST API
+      - User Identification
+      - Event Tracking
+      - Knowledge Base
+      - Surveys
+      - Feedback
+    properties:
+      - type: Documentation
+        url: https://help.productfruits.com/en/article/rest-api-authentication
+      - type: OpenAPI
+        url: https://help.productfruits.com/en/article/rest-api-authentication
+    contact:
+      - FN: Product Fruits Support
+        url: https://help.productfruits.com
+        email: info@productfruits.com
+common:
+  - type: Website
+    url: https://productfruits.com
+  - type: Documentation
+    url: https://help.productfruits.com
+  - type: GitHubOrg
+    url: https://github.com/product-fruits
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/product-fruits
+  - type: Blog
+    url: https://productfruits.com/blog
+  - type: Pricing
+    url: https://productfruits.com/pricing
+  - type: StatusPage
+    url: https://status.productfruits.com
+  - type: X
+    url: https://x.com/productfruits
+  - type: Plans
+    url: plans/product-fruits-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/product-fruits-rate-limits.yml
+  - type: FinOps
+    url: finops/product-fruits-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

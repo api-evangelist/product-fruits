@@ -1,0 +1,63 @@
+name: Product Fruits API Rate Limits
+description: >-
+  Product Fruits REST API rate limiting details. The API uses Bearer token
+  authentication and returns HTTP 429 Too Many Requests when limits are
+  exceeded. Specific per-plan rate limit figures are not publicly documented;
+  the information below reflects what is available from official sources and
+  general platform behavior.
+url: https://help.productfruits.com/en/article/rest-api-authentication
+rateLimits:
+  - name: REST API - General
+    description: >-
+      General rate limit applied to all REST API endpoints at
+      https://api.productfruits.com. Specific numeric limits are not publicly
+      disclosed. Clients should implement exponential backoff when receiving
+      HTTP 429 responses.
+    unit: request
+    window: minute
+    limit: not-disclosed
+    headers:
+      - name: Authorization
+        description: Bearer token authentication header required on all requests
+        required: true
+    errorResponse:
+      statusCode: 429
+      description: Too Many Requests - client has exceeded the allowed request rate
+  - name: User Identification Endpoint
+    description: >-
+      POST /v1/identify endpoint for upserting user records. Performs create or
+      update operations on user profiles and can trigger real-time content
+      updates for currently active users. Rate limits not publicly specified.
+    endpoint: POST /v1/identify
+    baseURL: https://api.productfruits.com
+    unit: request
+    window: minute
+    limit: not-disclosed
+  - name: Knowledge Base API
+    description: >-
+      Endpoints for managing knowledge base articles, categories, and image
+      uploads. Intended for bulk import and management operations; rate limits
+      not publicly specified.
+    baseURL: https://api.productfruits.com
+    unit: request
+    window: minute
+    limit: not-disclosed
+  - name: Events Tracking API
+    description: >-
+      Endpoints for recording custom user events triggered by backend systems.
+      Rate limits not publicly specified.
+    baseURL: https://api.productfruits.com
+    unit: request
+    window: minute
+    limit: not-disclosed
+notes:
+  - >-
+    Product Fruits does not publicly document specific numeric rate limits.
+    Contact support at help.productfruits.com for enterprise rate limit
+    details.
+  - >-
+    API keys are generated once and not retrievable after creation. Store keys
+    securely; never expose in front-end environments.
+  - >-
+    The platform scales by Monthly Active Users (MAU); heavier API workloads
+    may be subject to plan-level MAU caps rather than per-request rate limits.

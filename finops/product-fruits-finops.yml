@@ -1,0 +1,99 @@
+name: Product Fruits FinOps
+description: >-
+  Financial operations guidance for managing Product Fruits costs. The platform
+  uses Monthly Active Users (MAU)-based pricing, meaning costs scale directly
+  with the number of unique users who interact with the product in a given
+  month. All plans include unlimited team seats and domains, so cost management
+  focuses on MAU volume and plan feature tier selection.
+url: https://productfruits.com/pricing
+costDrivers:
+  - name: Monthly Active Users (MAU)
+    description: >-
+      The primary billing unit. A Monthly Active User is any unique end-user
+      who is identified and tracked by Product Fruits within a calendar month.
+      Costs scale as MAU counts grow; plan upgrades are triggered by MAU
+      thresholds.
+    unit: MAU
+    notes:
+      - >-
+        Monitor MAU counts in the Product Fruits dashboard to anticipate
+        tier upgrades before they occur.
+      - >-
+        Users identified via the REST API POST /v1/identify endpoint count
+        toward MAU totals.
+  - name: Plan Tier
+    description: >-
+      The chosen subscription tier (Starter, Pro, Business, Enterprise)
+      determines which features are available and the base monthly cost.
+      Feature requirements (NPS surveys, AI conversations, custom events)
+      drive minimum plan selection.
+    unit: plan
+  - name: AI Conversations (Elvin)
+    description: >-
+      Monthly AI assistant conversation usage is capped per plan. Starter
+      includes 20 free-text conversations/month, Pro includes 100, and Business
+      includes 1,000 plus 100 voice conversations. Exceeding limits may require
+      plan upgrade.
+    unit: conversation
+    limits:
+      - plan: Starter
+        limit: 20
+        type: free-text
+      - plan: Pro
+        limit: 100
+        type: free-text
+      - plan: Business
+        limit: 1000
+        type: free-text
+      - plan: Business
+        limit: 100
+        type: voice
+  - name: Billing Cadence
+    description: >-
+      Annual billing provides a 25% discount over monthly billing. Teams with
+      stable or growing user bases benefit most from annual commitment.
+    unit: year
+    annualDiscount: 25
+    notes:
+      - >-
+        Commit annually only after validating MAU projections to avoid
+        overpaying for unused capacity.
+optimizationStrategies:
+  - name: Right-Size MAU Tier
+    description: >-
+      Regularly audit actual MAU usage against plan limits. If usage
+      consistently stays well below the current plan's MAU cap, evaluate
+      downgrading to a lower tier.
+  - name: Annual vs. Monthly Billing
+    description: >-
+      Switch to annual billing for a 25% cost reduction once MAU volumes
+      and feature requirements are stable.
+  - name: AI Conversation Budget
+    description: >-
+      Track Elvin AI assistant conversation usage. If the Starter limit of 20
+      conversations/month is being hit, evaluate whether the Pro or Business
+      tier AI allowances justify the upgrade cost versus support ticket savings.
+  - name: Segment and Target Flows
+    description: >-
+      Use audience segmentation to show onboarding flows only to relevant user
+      groups, reducing unnecessary MAU activation and keeping active user counts
+      lower.
+  - name: Consolidate Workspaces
+    description: >-
+      Starter and Pro have limited workspace counts (2 and 6 respectively).
+      Plan workspace allocation carefully to avoid needing a tier upgrade purely
+      for workspace limits.
+budgetingNotes:
+  - >-
+    Base cost at Starter plan: $96/month (annual) or approximately $128/month
+    (monthly billing).
+  - >-
+    Base cost at Pro plan: $149/month (annual).
+  - >-
+    Base cost at Business plan: $374/month (annual).
+  - >-
+    Enterprise pricing is custom; contact sales for volume MAU discount
+    negotiations.
+  - >-
+    Security and compliance features (HIPAA, ISO) require Enterprise tier;
+    factor this into FinOps planning for regulated industries.

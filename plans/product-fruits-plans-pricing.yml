@@ -1,0 +1,206 @@
+name: Product Fruits Plans and Pricing
+description: >-
+  Product Fruits uses a Monthly Active Users (MAU)-based pricing model. All
+  plans include unlimited seats and domains. Pricing shown is billed annually
+  with a 25% discount; monthly billing is higher.
+url: https://productfruits.com/pricing
+plans:
+  - name: Starter
+    description: >-
+      Entry-level plan for small teams getting started with in-app onboarding.
+      Includes core guidance features with limited tours, tooltips, and
+      checklists.
+    url: https://productfruits.com/pricing
+    price: 96.00
+    unit: month
+    currency: USD
+    billing: annual
+    features:
+      - name: Tours and Guides
+        description: Product tours and guided walkthroughs
+        limit: 15
+      - name: Hints and Tooltips
+        description: Contextual hint beacons and tooltip overlays
+        limit: 50
+      - name: Onboarding Checklists
+        description: Task-based onboarding checklist widgets
+        limit: 2
+      - name: Localization
+        description: Number of supported languages
+        limit: 1
+      - name: Team Seats
+        description: Number of team members with dashboard access
+        limit: 3
+      - name: Workspaces
+        description: Number of separate product workspaces
+        limit: 2
+      - name: User Segments
+        description: Audience targeting segments
+        limit: 5
+      - name: AI Free Text Conversations (Elvin)
+        description: Monthly AI assistant conversations
+        limit: 20
+      - name: AI Active Sources
+        description: Knowledge sources for the AI agent
+        limit: 3
+      - name: AI URLs Per Source
+        description: URLs indexed per AI knowledge source
+        limit: 1000
+      - name: Announcements
+        description: In-app announcements, pop-ups, and banners
+        included: true
+      - name: Life Ring Help Button
+        description: Floating help button widget
+        included: true
+      - name: Support
+        description: Low-priority live chat and email support
+        included: true
+  - name: Pro
+    description: >-
+      Mid-tier plan for growing teams requiring advanced guidance, surveys,
+      NPS, and expanded AI capabilities.
+    url: https://productfruits.com/pricing
+    price: 149.00
+    unit: month
+    currency: USD
+    billing: annual
+    features:
+      - name: Tours and Guides
+        description: Product tours and guided walkthroughs
+        limit: 100
+      - name: Hints and Tooltips
+        description: Contextual hint beacons and tooltip overlays
+        limit: 500
+      - name: Onboarding Checklists
+        description: Task-based onboarding checklist widgets
+        limit: unlimited
+      - name: Localization
+        description: Number of supported languages
+        limit: 5
+      - name: Team Seats
+        description: Number of team members with dashboard access
+        limit: 10
+      - name: Workspaces
+        description: Number of separate product workspaces
+        limit: 6
+      - name: User Segments
+        description: Audience targeting segments
+        limit: 20
+      - name: Custom Events
+        description: Trackable custom user events
+        limit: 20
+      - name: AI Free Text Conversations (Elvin)
+        description: Monthly AI assistant conversations
+        limit: 100
+      - name: AI Active Sources
+        description: Knowledge sources for the AI agent
+        limit: 10
+      - name: AI URLs Per Source
+        description: URLs indexed per AI knowledge source
+        limit: 3000
+      - name: NPS Surveys
+        description: Net Promoter Score surveys
+        included: true
+      - name: In-App Surveys
+        description: Custom in-app survey widgets
+        included: true
+      - name: Feedback Widget
+        description: Continuous user feedback collection
+        included: true
+      - name: A/B Testing Integration
+        description: Integration with external A/B testing tools
+        included: true
+      - name: Support
+        description: Standard-priority live chat and email support
+        included: true
+  - name: Business
+    description: >-
+      Full-featured plan for established teams requiring unlimited guidance
+      elements, advanced AI capabilities, extensive segmentation, and
+      high-priority support.
+    url: https://productfruits.com/pricing
+    price: 374.00
+    unit: month
+    currency: USD
+    billing: annual
+    features:
+      - name: Tours and Guides
+        description: Product tours and guided walkthroughs
+        limit: unlimited
+      - name: Hints and Tooltips
+        description: Contextual hint beacons and tooltip overlays
+        limit: unlimited
+      - name: Onboarding Checklists
+        description: Task-based onboarding checklist widgets
+        limit: unlimited
+      - name: Localization
+        description: Number of supported languages
+        limit: 40
+      - name: Team Seats
+        description: Number of team members with dashboard access
+        limit: 40
+      - name: Workspaces
+        description: Number of separate product workspaces
+        limit: 100
+      - name: User Segments
+        description: Audience targeting segments
+        limit: unlimited
+      - name: Custom Events
+        description: Trackable custom user events
+        limit: 200
+      - name: AI Free Text Conversations (Elvin)
+        description: Monthly AI assistant conversations
+        limit: 1000
+      - name: AI Voice Conversations (Elvin)
+        description: Monthly AI voice assistant conversations
+        limit: 100
+      - name: AI Active Sources
+        description: Knowledge sources for the AI agent
+        limit: 100
+      - name: AI URLs Per Source
+        description: URLs indexed per AI knowledge source
+        limit: 8000
+      - name: NPS Surveys
+        description: Net Promoter Score surveys
+        included: true
+      - name: In-App Surveys
+        description: Custom in-app survey widgets
+        included: true
+      - name: Feedback Widget
+        description: Continuous user feedback collection
+        included: true
+      - name: A/B Testing Integration
+        description: Integration with external A/B testing tools
+        included: true
+      - name: Support
+        description: High-priority support with dedicated solution engineer access
+        included: true
+  - name: Enterprise
+    description: >-
+      Custom plan for large organizations with enterprise-grade security,
+      compliance (GDPR, ISO, HIPAA), dedicated account management, and
+      custom MAU limits.
+    url: https://productfruits.com/pricing
+    price: custom
+    unit: month
+    currency: USD
+    billing: custom
+    features:
+      - name: All Business Features
+        description: Includes everything in Business plus enterprise customization
+        included: true
+      - name: Custom MAU Limits
+        description: Negotiated monthly active user caps
+        included: true
+      - name: HIPAA Compliance
+        description: Healthcare data compliance support
+        included: true
+      - name: ISO Certification
+        description: ISO security certification compliance
+        included: true
+      - name: Dedicated Account Manager
+        description: Named account management and success support
+        included: true
+      - name: Custom SLA
+        description: Service level agreement with uptime guarantees
+        included: true
