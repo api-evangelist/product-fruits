@@ -1,0 +1,25 @@
+{
+  "articles": [
+    {
+      "correlationId": "article-getting-started",
+      "categoryCorrelationId": "cat-onboarding",
+      "isPrivate": false,
+      "contents": [
+        {
+          "lang": "en",
+          "title": "Getting Started with Product Fruits",
+          "content": "## Welcome\n\nThis guide helps you get started with Product Fruits in minutes.\n\n### Step 1: Install the SDK\n\nAdd the JavaScript snippet to your application.\n\n### Step 2: Identify Users\n\nCall the identify method with your user data.",
+          "format": "markdown",
+          "publishStatus": "published"
+        },
+        {
+          "lang": "fr",
+          "title": "Premiers pas avec Product Fruits",
+          "content": "## Bienvenue\n\nCe guide vous aide à démarrer avec Product Fruits en quelques minutes.",
+          "format": "markdown",
+          "publishStatus": "published"
+        }
+      ]
+    }
+  ]
+}

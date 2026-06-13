@@ -1,0 +1,9 @@
+{
+  "event": "feature_activated",
+  "properties": {
+    "username": "user-abc-123",
+    "featureName": "analytics_dashboard",
+    "isFirstTime": true,
+    "sessionDuration": 120
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.productfruits.com/schemas/feedback-webhook-payload",
+  "title": "Feedback Webhook Payload",
+  "description": "Webhook payload sent when new feedback is received",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "webhook:newfeedback",
+      "description": "Event type identifier"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "projectCode": {
+          "type": "string",
+          "description": "Workspace identifier"
+        },
+        "text": {
+          "type": "string",
+          "description": "Feedback text content"
+        },
+        "category": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" }
+          }
+        },
+        "authorName": {
+          "type": "string",
+          "description": "Name of the user who submitted feedback"
+        },
+        "authorEmail": {
+          "type": "string",
+          "format": "email",
+          "description": "Email of the user who submitted feedback"
+        },
+        "authorUsername": {
+          "type": "string",
+          "description": "Username of the user who submitted feedback"
+        },
+        "screenshotsUrls": {
+          "type": "array",
+          "items": { "type": "string", "format": "uri" },
+          "description": "URLs to attached screenshots"
+        },
+        "videoDataUrls": {
+          "type": "array",
+          "items": { "type": "string", "format": "uri" },
+          "description": "URLs to attached video data"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when feedback was created"
+        },
+        "environmentInfo": {
+          "type": "object",
+          "description": "Browser-gathered environment information",
+          "additionalProperties": true
+        },
+        "authorProps": {
+          "type": "object",
+          "description": "Custom properties of the author user",
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "webhook:newfeedback",
+  "data": {
+    "projectCode": "pf-workspace-001",
+    "text": "The tooltip on the dashboard is covering the save button.",
+    "category": {
+      "id": "cat-bug-reports",
+      "name": "Bug Reports"
+    },
+    "authorName": "Jane Doe",
+    "authorEmail": "jane.doe@example.com",
+    "authorUsername": "user-abc-123",
+    "screenshotsUrls": [
+      "https://storage.productfruits.com/screenshots/screenshot-001.png"
+    ],
+    "videoDataUrls": [],
+    "createdAt": "2024-06-13T14:30:00Z",
+    "environmentInfo": {
+      "browser": "Chrome",
+      "browserVersion": "120.0.0.0",
+      "os": "macOS",
+      "screenResolution": "2560x1440",
+      "currentUrl": "https://app.example.com/dashboard"
+    },
+    "authorProps": {
+      "plan": "pro",
+      "role": "admin"
+    }
+  }
+}

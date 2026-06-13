@@ -1,0 +1,71 @@
+vocabulary:
+  name: Product Fruits API Vocabulary
+  description: Key terms and concepts used across the Product Fruits REST API
+  version: 1.0.0
+  terms:
+    - term: username
+      definition: >-
+        A unique string identifier for a tracked user within a Product Fruits
+        workspace. Must be unique. Used as the primary key for user operations.
+        Must be URL-encoded when used in path parameters.
+    - term: correlationId
+      definition: >-
+        An external identifier provided by the integrating application that
+        maps to a Product Fruits resource (article or category). Used to
+        enable idempotent upsert operations.
+    - term: projectCode
+      definition: >-
+        A unique identifier for a Product Fruits workspace. Appears in
+        webhook payloads to identify the source workspace.
+    - term: identify
+      definition: >-
+        The upsert operation that creates or updates a tracked user's profile
+        in Product Fruits. Calling identify synchronizes user properties and
+        can trigger real-time content updates for online users.
+    - term: props
+      definition: >-
+        Custom properties attached to a user object. Can be of type number,
+        boolean, string, or array. Used for user segmentation and targeting
+        of onboarding content.
+    - term: publishStatus
+      definition: >-
+        The publication state of a knowledge base article's language content.
+        Either "published" (visible to users) or "unpublished" (draft state).
+    - term: knowledgebase
+      definition: >-
+        The in-app help center feature in Product Fruits. Articles and
+        categories within the knowledge base can be managed programmatically
+        via the REST API.
+    - term: tour
+      definition: >-
+        An in-app product tour or onboarding flow created in Product Fruits
+        to guide users through product features.
+    - term: checklist
+      definition: >-
+        An in-app onboarding checklist presented to users to guide them
+        through key activation steps.
+    - term: NPS
+      definition: >-
+        Net Promoter Score survey. In Product Fruits, NPS surveys can be
+        triggered in-app and results received via webhook (question type "nps",
+        integer answer 0-10).
+    - term: signUpAt
+      definition: >-
+        The date-time when a user signed up for the SaaS product. Provided
+        in the identify payload and used for time-based segmentation rules.
+    - term: bearer-token
+      definition: >-
+        The authentication mechanism for the Product Fruits REST API. API keys
+        are generated in the Integrations section and passed as
+        "Authorization: Bearer <key>" headers. Should never be used in
+        front-end environments.
+    - term: rate-limit
+      definition: >-
+        Product Fruits enforces a global limit of 5 requests per second across
+        all API endpoints. Exceeding this returns HTTP 429. Requests should
+        be batched where possible.
+    - term: webhook
+      definition: >-
+        HTTP callbacks sent by Product Fruits to a configured URL when events
+        occur (new feedback, new survey answer). Authenticated via
+        pfruits_security_token query parameter.

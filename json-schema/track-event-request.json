@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.productfruits.com/schemas/track-event-request",
+  "title": "Track Event Request",
+  "description": "Request body for tracking a custom event for a user in Product Fruits",
+  "type": "object",
+  "required": ["event", "properties"],
+  "properties": {
+    "event": {
+      "type": "string",
+      "description": "Name of the event to track"
+    },
+    "properties": {
+      "type": "object",
+      "required": ["username"],
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Username of the user receiving the event"
+        }
+      },
+      "additionalProperties": {
+        "oneOf": [
+          { "type": "number" },
+          { "type": "boolean" },
+          { "type": "string" }
+        ]
+      },
+      "description": "Event properties including required username and optional custom properties"
+    }
+  },
+  "additionalProperties": false
+}

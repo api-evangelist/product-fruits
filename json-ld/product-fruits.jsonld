@@ -1,0 +1,114 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "pf": "https://productfruits.com/vocab#",
+    "hydra": "http://www.w3.org/ns/hydra/core#"
+  },
+  "@type": "WebAPI",
+  "@id": "https://api.productfruits.com",
+  "name": "Product Fruits REST API",
+  "description": "REST API for the Product Fruits product adoption platform, enabling user identification, event tracking, knowledge base management, and feedback collection.",
+  "url": "https://api.productfruits.com",
+  "documentation": "https://help.productfruits.com/en/article/rest-api-authentication",
+  "provider": {
+    "@type": "Organization",
+    "name": "Product Fruits",
+    "url": "https://productfruits.com",
+    "email": "info@productfruits.com",
+    "sameAs": [
+      "https://github.com/product-fruits",
+      "https://www.linkedin.com/company/product-fruits",
+      "https://x.com/productfruits"
+    ]
+  },
+  "termsOfService": "https://productfruits.com/terms",
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "https://api.productfruits.com",
+    "serviceType": "REST API"
+  },
+  "pf:rateLimitPerSecond": 5,
+  "pf:authScheme": "BearerToken",
+  "pf:endpoints": [
+    {
+      "@type": "hydra:Operation",
+      "@id": "https://api.productfruits.com/v1/identify",
+      "name": "Identify User",
+      "description": "Create or update a tracked user (upsert)",
+      "hydra:method": "POST",
+      "pf:tags": ["Users"]
+    },
+    {
+      "@type": "hydra:Operation",
+      "@id": "https://api.productfruits.com/v1/users/{username}",
+      "name": "Delete User",
+      "description": "Delete a tracked user by username",
+      "hydra:method": "DELETE",
+      "pf:tags": ["Users"]
+    },
+    {
+      "@type": "hydra:Operation",
+      "@id": "https://api.productfruits.com/v1/users/{username}/conversations",
+      "name": "Delete User Conversations",
+      "description": "Delete user AI conversation traces",
+      "hydra:method": "DELETE",
+      "pf:tags": ["Users"]
+    },
+    {
+      "@type": "hydra:Operation",
+      "@id": "https://api.productfruits.com/v1/events/track",
+      "name": "Track Event",
+      "description": "Track a custom event for a user",
+      "hydra:method": "POST",
+      "pf:tags": ["Events"]
+    },
+    {
+      "@type": "hydra:Operation",
+      "@id": "https://api.productfruits.com/v1/feedback",
+      "name": "Create Feedback",
+      "description": "Create a feedback record",
+      "hydra:method": "POST",
+      "pf:tags": ["Feedback"]
+    },
+    {
+      "@type": "hydra:Operation",
+      "@id": "https://api.productfruits.com/v1/knowledgebase/import",
+      "name": "Import Articles",
+      "description": "Import or update knowledge base articles (max 50 per request)",
+      "hydra:method": "POST",
+      "pf:tags": ["Knowledge Base"]
+    },
+    {
+      "@type": "hydra:Operation",
+      "@id": "https://api.productfruits.com/v1/knowledgebase/articles",
+      "name": "List Articles",
+      "description": "List all knowledge base articles",
+      "hydra:method": "GET",
+      "pf:tags": ["Knowledge Base"]
+    },
+    {
+      "@type": "hydra:Operation",
+      "@id": "https://api.productfruits.com/v1/knowledgebase/categories",
+      "name": "List Categories",
+      "description": "List all knowledge base categories",
+      "hydra:method": "GET",
+      "pf:tags": ["Knowledge Base"]
+    },
+    {
+      "@type": "hydra:Operation",
+      "@id": "https://api.productfruits.com/v1/knowledgebase/categories/import",
+      "name": "Import Categories",
+      "description": "Import or update knowledge base categories",
+      "hydra:method": "POST",
+      "pf:tags": ["Knowledge Base"]
+    },
+    {
+      "@type": "hydra:Operation",
+      "@id": "https://api.productfruits.com/v1/knowledgebase/upload-image",
+      "name": "Upload Image",
+      "description": "Upload an image for use in knowledge base articles",
+      "hydra:method": "POST",
+      "pf:tags": ["Knowledge Base"]
+    }
+  ]
+}

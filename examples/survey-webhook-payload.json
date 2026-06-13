@@ -1,0 +1,33 @@
+{
+  "type": "webhook:newsurveyanswer",
+  "data": {
+    "projectCode": "pf-workspace-001",
+    "surveyId": "550e8400-e29b-41d4-a716-446655440000",
+    "authorName": "Jane Doe",
+    "authorEmail": "jane.doe@example.com",
+    "authorUsername": "user-abc-123",
+    "answers": [
+      {
+        "questionId": "q-550e8400-e29b-41d4-a716-001",
+        "questionType": "nps",
+        "answer": 9
+      },
+      {
+        "questionId": "q-550e8400-e29b-41d4-a716-002",
+        "questionType": "txt",
+        "answer": "The onboarding was smooth and intuitive."
+      },
+      {
+        "questionId": "q-550e8400-e29b-41d4-a716-003",
+        "questionType": "chk",
+        "answer": ["opt-001", "opt-003"],
+        "other": "Also better keyboard shortcuts"
+      },
+      {
+        "questionId": "q-550e8400-e29b-41d4-a716-004",
+        "questionType": "emo",
+        "answer": "😊"
+      }
+    ]
+  }
+}
