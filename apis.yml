@@ -7,7 +7,7 @@ description: >-
   platform offers a REST API and JavaScript API for programmatic control of
   onboarding flows, user identification, event tracking, knowledge base
   management, and feedback collection.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: >-
   https://raw.githubusercontent.com/api-evangelist/product-fruits/refs/heads/main/apis.yml
 created: '2026-06-13'
@@ -30,7 +30,7 @@ apis:
       base content, collecting feedback, and controlling onboarding flows
       programmatically. Supports user identification (upsert), event tracking,
       survey responses, and knowledge base article and category management.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://help.productfruits.com/en/article/rest-api-authentication
     baseURL: https://api.productfruits.com
     tags:
