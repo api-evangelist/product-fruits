@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: API key generated from the Integrations section in Product Fruits. Should never
+    be exposed in front-end environments.
+  sources:
+  - openapi/openapi.yml

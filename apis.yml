@@ -50,6 +50,10 @@ apis:
         url: https://help.productfruits.com
         email: info@productfruits.com
 common:
+  - type: DomainSecurity
+    url: security/product-fruits-domain-security.yml
+  - type: Authentication
+    url: authentication/product-fruits-authentication.yml
   - type: Website
     url: https://productfruits.com
   - type: Documentation
