@@ -50,6 +50,8 @@ apis:
         url: https://help.productfruits.com
         email: info@productfruits.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/product-fruits-agentic-access.yml
   - type: DomainSecurity
     url: security/product-fruits-domain-security.yml
   - type: Authentication
