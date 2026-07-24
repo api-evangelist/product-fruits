@@ -1,0 +1,89 @@
+openapi: 3.1.0
+info:
+  title: Product Fruits REST Events Feedback API
+  description: REST API for the Product Fruits product adoption platform. Provides programmatic control over user identification, event tracking, knowledge base management, and feedback collection for SaaS teams.
+  version: 1.0.0
+  contact:
+    name: Product Fruits Support
+    url: https://help.productfruits.com
+    email: info@productfruits.com
+  termsOfService: https://productfruits.com/terms
+servers:
+- url: https://api.productfruits.com
+  description: Production API server
+security:
+- BearerAuth: []
+tags:
+- name: Feedback
+  description: User feedback submission
+paths:
+  /v1/feedback:
+    post:
+      operationId: createFeedback
+      summary: Create a feedback record
+      description: Creates a new feedback entry associated with a tracked user.
+      tags:
+      - Feedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFeedbackRequest'
+            example:
+              username: user-123
+              text: The onboarding flow was very helpful!
+              environmentInfo:
+                userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+      responses:
+        '200':
+          description: Feedback created successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+components:
+  schemas:
+    CreateFeedbackRequest:
+      type: object
+      required:
+      - username
+      - text
+      properties:
+        username:
+          type: string
+          description: Username of the user submitting feedback
+        text:
+          type: string
+          description: Feedback text content
+        environmentInfo:
+          type: object
+          properties:
+            userAgent:
+              type: string
+              description: User agent string from the browser
+          additionalProperties: true
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+  responses:
+    RateLimitExceeded:
+      description: Rate limit exceeded (5 requests per second)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API key generated from the Integrations section in Product Fruits. Should never be exposed in front-end environments.

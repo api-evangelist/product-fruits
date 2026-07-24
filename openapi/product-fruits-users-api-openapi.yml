@@ -1,0 +1,161 @@
+openapi: 3.1.0
+info:
+  title: Product Fruits REST Events Users API
+  description: REST API for the Product Fruits product adoption platform. Provides programmatic control over user identification, event tracking, knowledge base management, and feedback collection for SaaS teams.
+  version: 1.0.0
+  contact:
+    name: Product Fruits Support
+    url: https://help.productfruits.com
+    email: info@productfruits.com
+  termsOfService: https://productfruits.com/terms
+servers:
+- url: https://api.productfruits.com
+  description: Production API server
+security:
+- BearerAuth: []
+tags:
+- name: Users
+  description: User identification and management
+paths:
+  /v1/identify:
+    post:
+      operationId: identifyUser
+      summary: Create or update a user
+      description: Performs an upsert operation on a tracked user. Synchronizes user properties from backend systems and can trigger real-time content updates if the user is currently online.
+      tags:
+      - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentifyUserRequest'
+            example:
+              user:
+                username: user-123
+                firstname: Jane
+                lastname: Doe
+                role: admin
+                signUpAt: '2024-01-15T10:00:00Z'
+                props:
+                  plan: pro
+                  trialDays: 14
+                  isVerified: true
+      responses:
+        '200':
+          description: User created or updated successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/users/{username}:
+    delete:
+      operationId: deleteUser
+      summary: Delete a tracked user
+      description: Deletes the given tracked user by username. The username must be URL-encoded.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/Username'
+      responses:
+        '200':
+          description: User deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/users/{username}/conversations:
+    delete:
+      operationId: deleteUserConversations
+      summary: Delete user AI conversations
+      description: Deletes the user's conversation traces from the AI infrastructure.
+      tags:
+      - Users
+      parameters:
+      - $ref: '#/components/parameters/Username'
+      responses:
+        '200':
+          description: User conversations deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+components:
+  parameters:
+    Username:
+      name: username
+      in: path
+      required: true
+      description: The tracked user's unique username (URL-encoded)
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimitExceeded:
+      description: Rate limit exceeded (5 requests per second)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+    IdentifyUserRequest:
+      type: object
+      required:
+      - user
+      properties:
+        user:
+          type: object
+          required:
+          - username
+          properties:
+            username:
+              type: string
+              description: Unique identifier for the user (required)
+            firstname:
+              type: string
+              description: User's first name
+            lastname:
+              type: string
+              description: User's last name
+            role:
+              type: string
+              description: User's role
+            signUpAt:
+              type: string
+              format: date-time
+              description: Date/time the user signed up (JSON Date/DateTime format)
+            props:
+              type: object
+              description: Custom user properties
+              additionalProperties:
+                oneOf:
+                - type: number
+                - type: boolean
+                - type: string
+                - type: array
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API key generated from the Integrations section in Product Fruits. Should never be exposed in front-end environments.

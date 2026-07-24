@@ -1,0 +1,93 @@
+openapi: 3.1.0
+info:
+  title: Product Fruits REST Events API
+  description: REST API for the Product Fruits product adoption platform. Provides programmatic control over user identification, event tracking, knowledge base management, and feedback collection for SaaS teams.
+  version: 1.0.0
+  contact:
+    name: Product Fruits Support
+    url: https://help.productfruits.com
+    email: info@productfruits.com
+  termsOfService: https://productfruits.com/terms
+servers:
+- url: https://api.productfruits.com
+  description: Production API server
+security:
+- BearerAuth: []
+tags:
+- name: Events
+  description: Custom event tracking
+paths:
+  /v1/events/track:
+    post:
+      operationId: trackEvent
+      summary: Track a custom event for a user
+      description: Syncs a custom event from backend systems to a specified user. Custom properties in the properties object are available for future use in segmentation and targeting.
+      tags:
+      - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackEventRequest'
+            example:
+              event: feature_activated
+              properties:
+                username: user-123
+                featureName: analytics
+                isFirstTime: true
+      responses:
+        '200':
+          description: Event tracked successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+    TrackEventRequest:
+      type: object
+      required:
+      - event
+      - properties
+      properties:
+        event:
+          type: string
+          description: Name of the event to track
+        properties:
+          type: object
+          required:
+          - username
+          properties:
+            username:
+              type: string
+              description: Username of the user receiving the event
+          additionalProperties:
+            oneOf:
+            - type: number
+            - type: boolean
+            - type: string
+  responses:
+    RateLimitExceeded:
+      description: Rate limit exceeded (5 requests per second)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API key generated from the Integrations section in Product Fruits. Should never be exposed in front-end environments.
