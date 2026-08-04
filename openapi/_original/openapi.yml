@@ -1,0 +1,706 @@
+openapi: 3.1.0
+info:
+  title: Product Fruits REST API
+  description: >-
+    REST API for the Product Fruits product adoption platform. Provides
+    programmatic control over user identification, event tracking, knowledge
+    base management, and feedback collection for SaaS teams.
+  version: 1.0.0
+  contact:
+    name: Product Fruits Support
+    url: https://help.productfruits.com
+    email: info@productfruits.com
+  termsOfService: https://productfruits.com/terms
+servers:
+  - url: https://api.productfruits.com
+    description: Production API server
+security:
+  - BearerAuth: []
+tags:
+  - name: Users
+    description: User identification and management
+  - name: Events
+    description: Custom event tracking
+  - name: Feedback
+    description: User feedback submission
+  - name: Knowledge Base
+    description: Knowledge base article and category management
+paths:
+  /v1/identify:
+    post:
+      operationId: identifyUser
+      summary: Create or update a user
+      description: >-
+        Performs an upsert operation on a tracked user. Synchronizes user
+        properties from backend systems and can trigger real-time content
+        updates if the user is currently online.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentifyUserRequest'
+            example:
+              user:
+                username: user-123
+                firstname: Jane
+                lastname: Doe
+                role: admin
+                signUpAt: '2024-01-15T10:00:00Z'
+                props:
+                  plan: pro
+                  trialDays: 14
+                  isVerified: true
+      responses:
+        '200':
+          description: User created or updated successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/users/{username}:
+    delete:
+      operationId: deleteUser
+      summary: Delete a tracked user
+      description: >-
+        Deletes the given tracked user by username. The username must be
+        URL-encoded.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/Username'
+      responses:
+        '200':
+          description: User deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/users/{username}/conversations:
+    delete:
+      operationId: deleteUserConversations
+      summary: Delete user AI conversations
+      description: >-
+        Deletes the user's conversation traces from the AI infrastructure.
+      tags:
+        - Users
+      parameters:
+        - $ref: '#/components/parameters/Username'
+      responses:
+        '200':
+          description: User conversations deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/events/track:
+    post:
+      operationId: trackEvent
+      summary: Track a custom event for a user
+      description: >-
+        Syncs a custom event from backend systems to a specified user.
+        Custom properties in the properties object are available for future
+        use in segmentation and targeting.
+      tags:
+        - Events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackEventRequest'
+            example:
+              event: feature_activated
+              properties:
+                username: user-123
+                featureName: analytics
+                isFirstTime: true
+      responses:
+        '200':
+          description: Event tracked successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/feedback:
+    post:
+      operationId: createFeedback
+      summary: Create a feedback record
+      description: >-
+        Creates a new feedback entry associated with a tracked user.
+      tags:
+        - Feedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFeedbackRequest'
+            example:
+              username: user-123
+              text: The onboarding flow was very helpful!
+              environmentInfo:
+                userAgent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+      responses:
+        '200':
+          description: Feedback created successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/knowledgebase/import:
+    post:
+      operationId: importArticles
+      summary: Import or update knowledge base articles
+      description: >-
+        Imports or updates knowledge base articles with multilingual content
+        support. Maximum 50 articles per request. Maximum 20 content
+        languages per article.
+      tags:
+        - Knowledge Base
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportArticlesRequest'
+            example:
+              articles:
+                - correlationId: article-getting-started
+                  categoryCorrelationId: cat-onboarding
+                  isPrivate: false
+                  contents:
+                    - lang: en
+                      title: Getting Started with Product Fruits
+                      content: '## Welcome\n\nThis guide helps you get started...'
+                      format: markdown
+                      publishStatus: published
+      responses:
+        '200':
+          description: Import completed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportArticlesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/knowledgebase/articles:
+    get:
+      operationId: listArticles
+      summary: List knowledge base articles
+      description: >-
+        Retrieves all knowledge base articles. Supports filtering by category.
+      tags:
+        - Knowledge Base
+      parameters:
+        - name: categoryCorrelationId
+          in: query
+          description: Filter articles by category correlation ID
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of articles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Article'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/knowledgebase/articles/{correlationId}:
+    delete:
+      operationId: deleteArticle
+      summary: Delete a knowledge base article
+      description: >-
+        Removes an entire article by its correlation ID.
+      tags:
+        - Knowledge Base
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      responses:
+        '200':
+          description: Article deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/knowledgebase/articles/{correlationId}/content/{lang}:
+    delete:
+      operationId: deleteArticleLanguageContent
+      summary: Delete language-specific article content
+      description: >-
+        Removes language-specific content from an article.
+      tags:
+        - Knowledge Base
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - $ref: '#/components/parameters/Lang'
+      responses:
+        '200':
+          description: Language content deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/knowledgebase/articles/{correlationId}/content/{lang}/{id}:
+    delete:
+      operationId: deleteArticleContentVersion
+      summary: Delete a specific content version
+      description: >-
+        Removes a specific content version from an article.
+      tags:
+        - Knowledge Base
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+        - $ref: '#/components/parameters/Lang'
+        - name: id
+          in: path
+          required: true
+          description: Content version ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Content version deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/knowledgebase/categories:
+    get:
+      operationId: listCategories
+      summary: List knowledge base categories
+      description: Retrieves all knowledge base categories.
+      tags:
+        - Knowledge Base
+      responses:
+        '200':
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/knowledgebase/categories/import:
+    post:
+      operationId: importCategories
+      summary: Import or update knowledge base categories
+      description: Imports or updates knowledge base categories.
+      tags:
+        - Knowledge Base
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImportCategoriesRequest'
+      responses:
+        '200':
+          description: Categories imported successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/knowledgebase/categories/{correlationId}:
+    get:
+      operationId: getCategory
+      summary: Get a specific category
+      description: Retrieves a specific knowledge base category by correlation ID.
+      tags:
+        - Knowledge Base
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      responses:
+        '200':
+          description: Category details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+    put:
+      operationId: updateCategory
+      summary: Update a knowledge base category
+      description: Updates details of an existing knowledge base category.
+      tags:
+        - Knowledge Base
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCategoryRequest'
+      responses:
+        '200':
+          description: Category updated successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+    delete:
+      operationId: deleteCategory
+      summary: Delete a knowledge base category
+      description: Removes a knowledge base category by correlation ID.
+      tags:
+        - Knowledge Base
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      responses:
+        '200':
+          description: Category deleted successfully
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+  /v1/knowledgebase/upload-image:
+    post:
+      operationId: uploadImage
+      summary: Upload an image for knowledge base articles
+      description: Uploads an image to be used in knowledge base articles.
+      tags:
+        - Knowledge Base
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Image file to upload
+      responses:
+        '200':
+          description: Image uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    description: URL of the uploaded image
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/RateLimitExceeded'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        API key generated from the Integrations section in Product Fruits.
+        Should never be exposed in front-end environments.
+  parameters:
+    Username:
+      name: username
+      in: path
+      required: true
+      description: The tracked user's unique username (URL-encoded)
+      schema:
+        type: string
+    CorrelationId:
+      name: correlationId
+      in: path
+      required: true
+      description: External correlation ID for the resource
+      schema:
+        type: string
+    Lang:
+      name: lang
+      in: path
+      required: true
+      description: Language code (e.g., en, fr, de)
+      schema:
+        type: string
+  schemas:
+    IdentifyUserRequest:
+      type: object
+      required:
+        - user
+      properties:
+        user:
+          type: object
+          required:
+            - username
+          properties:
+            username:
+              type: string
+              description: Unique identifier for the user (required)
+            firstname:
+              type: string
+              description: User's first name
+            lastname:
+              type: string
+              description: User's last name
+            role:
+              type: string
+              description: User's role
+            signUpAt:
+              type: string
+              format: date-time
+              description: Date/time the user signed up (JSON Date/DateTime format)
+            props:
+              type: object
+              description: Custom user properties
+              additionalProperties:
+                oneOf:
+                  - type: number
+                  - type: boolean
+                  - type: string
+                  - type: array
+    TrackEventRequest:
+      type: object
+      required:
+        - event
+        - properties
+      properties:
+        event:
+          type: string
+          description: Name of the event to track
+        properties:
+          type: object
+          required:
+            - username
+          properties:
+            username:
+              type: string
+              description: Username of the user receiving the event
+          additionalProperties:
+            oneOf:
+              - type: number
+              - type: boolean
+              - type: string
+    CreateFeedbackRequest:
+      type: object
+      required:
+        - username
+        - text
+      properties:
+        username:
+          type: string
+          description: Username of the user submitting feedback
+        text:
+          type: string
+          description: Feedback text content
+        environmentInfo:
+          type: object
+          properties:
+            userAgent:
+              type: string
+              description: User agent string from the browser
+          additionalProperties: true
+    ImportArticlesRequest:
+      type: object
+      required:
+        - articles
+      properties:
+        articles:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/ArticleImport'
+    ArticleImport:
+      type: object
+      required:
+        - correlationId
+        - contents
+      properties:
+        correlationId:
+          type: string
+          description: External ID for the article used for idempotent upserts
+        categoryCorrelationId:
+          type: string
+          description: Correlation ID of the category this article belongs to
+        isPrivate:
+          type: boolean
+          description: Whether the article is private
+        contents:
+          type: array
+          maxItems: 20
+          items:
+            $ref: '#/components/schemas/ArticleContent'
+    ArticleContent:
+      type: object
+      required:
+        - lang
+        - title
+        - content
+      properties:
+        lang:
+          type: string
+          description: Language code (e.g., en, fr, de)
+        title:
+          type: string
+          description: Article title
+        content:
+          type: string
+          description: Article body content
+        format:
+          type: string
+          enum:
+            - markdown
+          description: Content format
+        publishStatus:
+          type: string
+          enum:
+            - published
+            - unpublished
+          description: Publication status of the article
+    ImportArticlesResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+        results:
+          type: array
+          items:
+            type: object
+            properties:
+              correlationId:
+                type: string
+              articleId:
+                type: number
+              status:
+                type: string
+                enum:
+                  - created
+                  - updated
+              contents:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    lang:
+                      type: string
+                    contentId:
+                      type: number
+                    slug:
+                      type: string
+                    status:
+                      type: string
+                    published:
+                      type: boolean
+              errors:
+                type: array
+                items:
+                  type: string
+    Article:
+      type: object
+      properties:
+        correlationId:
+          type: string
+        articleId:
+          type: number
+        categoryCorrelationId:
+          type: string
+        isPrivate:
+          type: boolean
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArticleContent'
+    Category:
+      type: object
+      properties:
+        correlationId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    ImportCategoriesRequest:
+      type: object
+      required:
+        - categories
+      properties:
+        categories:
+          type: array
+          items:
+            type: object
+            required:
+              - correlationId
+              - name
+            properties:
+              correlationId:
+                type: string
+                description: External ID for idempotent upserts
+              name:
+                type: string
+                description: Category name
+              description:
+                type: string
+                description: Category description
+    UpdateCategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Updated category name
+        description:
+          type: string
+          description: Updated category description
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimitExceeded:
+      description: Rate limit exceeded (5 requests per second)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

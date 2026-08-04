@@ -1,0 +1,20 @@
+{
+  "provider": "product-fruits",
+  "sources": [
+    "product-fruits-events-api-openapi.yml",
+    "product-fruits-feedback-api-openapi.yml",
+    "product-fruits-knowledge-base-api-openapi.yml",
+    "product-fruits-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "product-fruits-events-api-openapi.yml",
+    "product-fruits-feedback-api-openapi.yml",
+    "product-fruits-knowledge-base-api-openapi.yml",
+    "product-fruits-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
