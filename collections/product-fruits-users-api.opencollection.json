@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Product Fruits REST Events Users API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create or update a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.productfruits.com/v1/identify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs an upsert operation on a tracked user. Synchronizes user properties from backend systems and can trigger real-time content updates if the user is currently online."
+        },
+        {
+          "info": {
+            "name": "Delete a tracked user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.productfruits.com/v1/users/:username",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The tracked user's unique username (URL-encoded)"
+              }
+            ]
+          },
+          "docs": "Deletes the given tracked user by username. The username must be URL-encoded."
+        },
+        {
+          "info": {
+            "name": "Delete user AI conversations",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.productfruits.com/v1/users/:username/conversations",
+            "params": [
+              {
+                "name": "username",
+                "value": "",
+                "type": "path",
+                "description": "The tracked user's unique username (URL-encoded)"
+              }
+            ]
+          },
+          "docs": "Deletes the user's conversation traces from the AI infrastructure."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

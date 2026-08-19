@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Product Fruits REST Events Feedback API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Feedback",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a feedback record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.productfruits.com/v1/feedback",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new feedback entry associated with a tracked user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
