@@ -34,6 +34,15 @@ tags:
   - NPS Surveys
   - Announcements
   - User Segmentation
+  - Software-as-a-Service
+tags_raw:
+  - Product Adoption
+  - User Onboarding
+  - In-App Guidance
+  - Checklists
+  - NPS Surveys
+  - Announcements
+  - User Segmentation
   - SaaS
 apis:
 - aid: product-fruits:product-fruits-events-api
@@ -42,6 +51,8 @@ apis:
   humanURL: https://help.productfruits.com/en/article/rest-api-authentication
   baseURL: https://api.productfruits.com
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -78,6 +89,8 @@ apis:
   humanURL: https://help.productfruits.com/en/article/rest-api-authentication
   baseURL: https://api.productfruits.com
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
