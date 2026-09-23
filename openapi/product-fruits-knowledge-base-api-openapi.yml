@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Product Fruits REST Events Knowledge Base API
+  title: Product Fruits REST Knowledge Base API
   description: REST API for the Product Fruits product adoption platform. Provides programmatic control over user identification, event tracking, knowledge base management, and feedback collection for SaaS teams.
   version: 1.0.0
   contact:
@@ -298,6 +298,28 @@ components:
           maxItems: 20
           items:
             $ref: '#/components/schemas/ArticleContent'
+    ImportCategoriesRequest:
+      type: object
+      required:
+      - categories
+      properties:
+        categories:
+          type: array
+          items:
+            type: object
+            required:
+            - correlationId
+            - name
+            properties:
+              correlationId:
+                type: string
+                description: External ID for idempotent upserts
+              name:
+                type: string
+                description: Category name
+              description:
+                type: string
+                description: Category description
     ImportArticlesResponse:
       type: object
       properties:
@@ -338,6 +360,40 @@ components:
                 type: array
                 items:
                   type: string
+    Article:
+      type: object
+      properties:
+        correlationId:
+          type: string
+        articleId:
+          type: number
+        categoryCorrelationId:
+          type: string
+        isPrivate:
+          type: boolean
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArticleContent'
+    ImportArticlesRequest:
+      type: object
+      required:
+      - articles
+      properties:
+        articles:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/ArticleImport'
+    Category:
+      type: object
+      properties:
+        correlationId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
     ArticleContent:
       type: object
       required:
@@ -365,16 +421,6 @@ components:
           - published
           - unpublished
           description: Publication status of the article
-    ImportArticlesRequest:
-      type: object
-      required:
-      - articles
-      properties:
-        articles:
-          type: array
-          maxItems: 50
-          items:
-            $ref: '#/components/schemas/ArticleImport'
     UpdateCategoryRequest:
       type: object
       properties:
@@ -384,71 +430,25 @@ components:
         description:
           type: string
           description: Updated category description
-    ImportCategoriesRequest:
-      type: object
-      required:
-      - categories
-      properties:
-        categories:
-          type: array
-          items:
-            type: object
-            required:
-            - correlationId
-            - name
-            properties:
-              correlationId:
-                type: string
-                description: External ID for idempotent upserts
-              name:
-                type: string
-                description: Category name
-              description:
-                type: string
-                description: Category description
     Error:
       type: object
       properties:
         message:
           type: string
           description: Error message
-    Article:
-      type: object
-      properties:
-        correlationId:
-          type: string
-        articleId:
-          type: number
-        categoryCorrelationId:
-          type: string
-        isPrivate:
-          type: boolean
-        contents:
-          type: array
-          items:
-            $ref: '#/components/schemas/ArticleContent'
-    Category:
-      type: object
-      properties:
-        correlationId:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
   parameters:
-    Lang:
-      name: lang
-      in: path
-      required: true
-      description: Language code (e.g., en, fr, de)
-      schema:
-        type: string
     CorrelationId:
       name: correlationId
       in: path
       required: true
       description: External correlation ID for the resource
+      schema:
+        type: string
+    Lang:
+      name: lang
+      in: path
+      required: true
+      description: Language code (e.g., en, fr, de)
       schema:
         type: string
   responses:
@@ -458,14 +458,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    RateLimitExceeded:
-      description: Rate limit exceeded (5 requests per second)
+    Unauthorized:
+      description: Missing or invalid API key
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key
+    RateLimitExceeded:
+      description: Rate limit exceeded (5 requests per second)
       content:
         application/json:
           schema:

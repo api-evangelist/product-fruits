@@ -1,0 +1,32 @@
+# Front Door AI Index — product-fruits — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: product-fruits
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: productfruits.com
+  final_host: productfruits.com
+  ownership: own
+  owner: product-fruits
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 37
+  host_score: 37
+  density: 19.68
+  words: 1880
+  tiers:
+    agentic: 12
+    core: 17
+    model: 8
+  ambiguous: 3
+  top_terms:
+    AI: 17
+    MCP: 6
+    ChatGPT: 4
+    Claude: 4
+    AI assistant: 3
+    agent: 3
+    AI agent: 2
+    model context protocol: 1

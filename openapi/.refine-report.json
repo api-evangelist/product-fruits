@@ -1,10 +1,7 @@
 {
   "provider": "product-fruits",
   "sources": [
-    "product-fruits-events-api-openapi.yml",
-    "product-fruits-feedback-api-openapi.yml",
-    "product-fruits-knowledge-base-api-openapi.yml",
-    "product-fruits-users-api-openapi.yml"
+    "_original/openapi.yml"
   ],
   "outputs": [
     "product-fruits-events-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "product-fruits-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "product-fruits-feedback-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "product-fruits-knowledge-base-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "product-fruits-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
