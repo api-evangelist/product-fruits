@@ -85,15 +85,13 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimitExceeded'
 components:
-  parameters:
-    Username:
-      name: username
-      in: path
-      required: true
-      description: The tracked user's unique username (URL-encoded)
-      schema:
-        type: string
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
     IdentifyUserRequest:
       type: object
       required:
@@ -129,19 +127,15 @@ components:
                 - type: boolean
                 - type: string
                 - type: array
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
+  parameters:
+    Username:
+      name: username
+      in: path
+      required: true
+      description: The tracked user's unique username (URL-encoded)
+      schema:
+        type: string
   responses:
-    RateLimitExceeded:
-      description: Rate limit exceeded (5 requests per second)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found
       content:
@@ -150,6 +144,12 @@ components:
             $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimitExceeded:
+      description: Rate limit exceeded (5 requests per second)
       content:
         application/json:
           schema:

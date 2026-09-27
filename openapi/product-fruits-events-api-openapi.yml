@@ -45,12 +45,6 @@ paths:
           $ref: '#/components/responses/RateLimitExceeded'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
     TrackEventRequest:
       type: object
       required:
@@ -73,6 +67,12 @@ components:
             - type: number
             - type: boolean
             - type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
   responses:
     Unauthorized:
       description: Missing or invalid API key

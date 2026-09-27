@@ -43,26 +43,7 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimitExceeded'
 components:
-  responses:
-    RateLimitExceeded:
-      description: Rate limit exceeded (5 requests per second)
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
     CreateFeedbackRequest:
       type: object
       required:
@@ -82,6 +63,25 @@ components:
               type: string
               description: User agent string from the browser
           additionalProperties: true
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RateLimitExceeded:
+      description: Rate limit exceeded (5 requests per second)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       type: http

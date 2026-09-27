@@ -278,48 +278,48 @@ paths:
           $ref: '#/components/responses/RateLimitExceeded'
 components:
   schemas:
-    ArticleImport:
+    Category:
       type: object
-      required:
-      - correlationId
-      - contents
       properties:
         correlationId:
           type: string
-          description: External ID for the article used for idempotent upserts
-        categoryCorrelationId:
+        name:
           type: string
-          description: Correlation ID of the category this article belongs to
-        isPrivate:
-          type: boolean
-          description: Whether the article is private
-        contents:
-          type: array
-          maxItems: 20
-          items:
-            $ref: '#/components/schemas/ArticleContent'
-    ImportCategoriesRequest:
+        description:
+          type: string
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+    ArticleContent:
       type: object
       required:
-      - categories
+      - lang
+      - title
+      - content
       properties:
-        categories:
-          type: array
-          items:
-            type: object
-            required:
-            - correlationId
-            - name
-            properties:
-              correlationId:
-                type: string
-                description: External ID for idempotent upserts
-              name:
-                type: string
-                description: Category name
-              description:
-                type: string
-                description: Category description
+        lang:
+          type: string
+          description: Language code (e.g., en, fr, de)
+        title:
+          type: string
+          description: Article title
+        content:
+          type: string
+          description: Article body content
+        format:
+          type: string
+          enum:
+          - markdown
+          description: Content format
+        publishStatus:
+          type: string
+          enum:
+          - published
+          - unpublished
+          description: Publication status of the article
     ImportArticlesResponse:
       type: object
       properties:
@@ -360,6 +360,16 @@ components:
                 type: array
                 items:
                   type: string
+    ImportArticlesRequest:
+      type: object
+      required:
+      - articles
+      properties:
+        articles:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/ArticleImport'
     Article:
       type: object
       properties:
@@ -375,52 +385,48 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ArticleContent'
-    ImportArticlesRequest:
+    ImportCategoriesRequest:
       type: object
       required:
-      - articles
+      - categories
       properties:
-        articles:
+        categories:
           type: array
-          maxItems: 50
           items:
-            $ref: '#/components/schemas/ArticleImport'
-    Category:
+            type: object
+            required:
+            - correlationId
+            - name
+            properties:
+              correlationId:
+                type: string
+                description: External ID for idempotent upserts
+              name:
+                type: string
+                description: Category name
+              description:
+                type: string
+                description: Category description
+    ArticleImport:
       type: object
+      required:
+      - correlationId
+      - contents
       properties:
         correlationId:
           type: string
-        name:
+          description: External ID for the article used for idempotent upserts
+        categoryCorrelationId:
           type: string
-        description:
-          type: string
-    ArticleContent:
-      type: object
-      required:
-      - lang
-      - title
-      - content
-      properties:
-        lang:
-          type: string
-          description: Language code (e.g., en, fr, de)
-        title:
-          type: string
-          description: Article title
-        content:
-          type: string
-          description: Article body content
-        format:
-          type: string
-          enum:
-          - markdown
-          description: Content format
-        publishStatus:
-          type: string
-          enum:
-          - published
-          - unpublished
-          description: Publication status of the article
+          description: Correlation ID of the category this article belongs to
+        isPrivate:
+          type: boolean
+          description: Whether the article is private
+        contents:
+          type: array
+          maxItems: 20
+          items:
+            $ref: '#/components/schemas/ArticleContent'
     UpdateCategoryRequest:
       type: object
       properties:
@@ -430,12 +436,6 @@ components:
         description:
           type: string
           description: Updated category description
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
   parameters:
     CorrelationId:
       name: correlationId
