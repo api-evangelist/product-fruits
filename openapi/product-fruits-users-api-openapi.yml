@@ -136,8 +136,8 @@ components:
       schema:
         type: string
   responses:
-    NotFound:
-      description: Resource not found
+    RateLimitExceeded:
+      description: Rate limit exceeded (5 requests per second)
       content:
         application/json:
           schema:
@@ -148,8 +148,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    RateLimitExceeded:
-      description: Rate limit exceeded (5 requests per second)
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
