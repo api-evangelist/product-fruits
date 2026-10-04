@@ -277,7 +277,98 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimitExceeded'
 components:
+  parameters:
+    Lang:
+      name: lang
+      in: path
+      required: true
+      description: Language code (e.g., en, fr, de)
+      schema:
+        type: string
+    CorrelationId:
+      name: correlationId
+      in: path
+      required: true
+      description: External correlation ID for the resource
+      schema:
+        type: string
   schemas:
+    ArticleContent:
+      type: object
+      required:
+      - lang
+      - title
+      - content
+      properties:
+        lang:
+          type: string
+          description: Language code (e.g., en, fr, de)
+        title:
+          type: string
+          description: Article title
+        content:
+          type: string
+          description: Article body content
+        format:
+          type: string
+          enum:
+          - markdown
+          description: Content format
+        publishStatus:
+          type: string
+          enum:
+          - published
+          - unpublished
+          description: Publication status of the article
+    UpdateCategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Updated category name
+        description:
+          type: string
+          description: Updated category description
+    Article:
+      type: object
+      properties:
+        correlationId:
+          type: string
+        articleId:
+          type: number
+        categoryCorrelationId:
+          type: string
+        isPrivate:
+          type: boolean
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArticleContent'
+    ImportArticlesRequest:
+      type: object
+      required:
+      - articles
+      properties:
+        articles:
+          type: array
+          maxItems: 50
+          items:
+            $ref: '#/components/schemas/ArticleImport'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+    Category:
+      type: object
+      properties:
+        correlationId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
     ImportArticlesResponse:
       type: object
       properties:
@@ -338,21 +429,6 @@ components:
           maxItems: 20
           items:
             $ref: '#/components/schemas/ArticleContent'
-    Article:
-      type: object
-      properties:
-        correlationId:
-          type: string
-        articleId:
-          type: number
-        categoryCorrelationId:
-          type: string
-        isPrivate:
-          type: boolean
-        contents:
-          type: array
-          items:
-            $ref: '#/components/schemas/ArticleContent'
     ImportCategoriesRequest:
       type: object
       required:
@@ -375,85 +451,9 @@ components:
               description:
                 type: string
                 description: Category description
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
-    Category:
-      type: object
-      properties:
-        correlationId:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-    ArticleContent:
-      type: object
-      required:
-      - lang
-      - title
-      - content
-      properties:
-        lang:
-          type: string
-          description: Language code (e.g., en, fr, de)
-        title:
-          type: string
-          description: Article title
-        content:
-          type: string
-          description: Article body content
-        format:
-          type: string
-          enum:
-          - markdown
-          description: Content format
-        publishStatus:
-          type: string
-          enum:
-          - published
-          - unpublished
-          description: Publication status of the article
-    ImportArticlesRequest:
-      type: object
-      required:
-      - articles
-      properties:
-        articles:
-          type: array
-          maxItems: 50
-          items:
-            $ref: '#/components/schemas/ArticleImport'
-    UpdateCategoryRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Updated category name
-        description:
-          type: string
-          description: Updated category description
-  parameters:
-    Lang:
-      name: lang
-      in: path
-      required: true
-      description: Language code (e.g., en, fr, de)
-      schema:
-        type: string
-    CorrelationId:
-      name: correlationId
-      in: path
-      required: true
-      description: External correlation ID for the resource
-      schema:
-        type: string
   responses:
-    RateLimitExceeded:
-      description: Rate limit exceeded (5 requests per second)
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
@@ -464,8 +464,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
+    RateLimitExceeded:
+      description: Rate limit exceeded (5 requests per second)
       content:
         application/json:
           schema:

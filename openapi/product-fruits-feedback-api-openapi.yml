@@ -70,14 +70,14 @@ components:
           type: string
           description: Error message
   responses:
-    Unauthorized:
-      description: Missing or invalid API key
+    RateLimitExceeded:
+      description: Rate limit exceeded (5 requests per second)
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    RateLimitExceeded:
-      description: Rate limit exceeded (5 requests per second)
+    Unauthorized:
+      description: Missing or invalid API key
       content:
         application/json:
           schema:
