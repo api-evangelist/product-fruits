@@ -1,0 +1,35 @@
+slug: product-fruits
+provider: Product Fruits
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Events
+  spec_file: product-fruits-events-api-openapi.yml
+  capability_id: BC-4280.10
+  capability_id_l1: BC-4280
+  capability_name: Product Telemetry Instrumentation
+  confidence: 0.8
+  evidence: POST /v1/events/track trackEvent 'Track a custom event for a user'; schema TrackEventRequest
+  reason: Capture of custom product usage events from the host application against a defined event payload
+    is product telemetry instrumentation.
+- tag: Knowledge Base
+  spec_file: product-fruits-knowledge-base-api-openapi.yml
+  capability_id: BC-430.40
+  capability_id_l1: BC-430
+  capability_name: Self-Service Management
+  confidence: 0.72
+  evidence: '''Import or update knowledge base articles'', ''List knowledge base categories'', schemas
+    Article, Category, ArticleContent'
+  reason: Manages the article/category content of an in-product help centre surfaced to end users, which
+    is self-service knowledge base management. An internal knowledge-management reading (BC-830) is less
+    apt because the content is customer-facing in-app help.

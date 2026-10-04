@@ -111,6 +111,9 @@ apis:
   - type: Documentation
     url: https://help.productfruits.com/en/article/rest-api-authentication
 common:
+  - type: CapabilityMap
+    url: capabilities/product-fruits-capability-edges.yml
+    name: Product Fruits Business Capability Map
   - type: AgenticAccess
     url: agentic-access/product-fruits-agentic-access.yml
   - type: DomainSecurity
