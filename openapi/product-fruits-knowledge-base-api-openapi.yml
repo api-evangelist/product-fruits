@@ -277,98 +277,13 @@ paths:
         '429':
           $ref: '#/components/responses/RateLimitExceeded'
 components:
-  parameters:
-    Lang:
-      name: lang
-      in: path
-      required: true
-      description: Language code (e.g., en, fr, de)
-      schema:
-        type: string
-    CorrelationId:
-      name: correlationId
-      in: path
-      required: true
-      description: External correlation ID for the resource
-      schema:
-        type: string
   schemas:
-    ArticleContent:
-      type: object
-      required:
-      - lang
-      - title
-      - content
-      properties:
-        lang:
-          type: string
-          description: Language code (e.g., en, fr, de)
-        title:
-          type: string
-          description: Article title
-        content:
-          type: string
-          description: Article body content
-        format:
-          type: string
-          enum:
-          - markdown
-          description: Content format
-        publishStatus:
-          type: string
-          enum:
-          - published
-          - unpublished
-          description: Publication status of the article
-    UpdateCategoryRequest:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Updated category name
-        description:
-          type: string
-          description: Updated category description
-    Article:
-      type: object
-      properties:
-        correlationId:
-          type: string
-        articleId:
-          type: number
-        categoryCorrelationId:
-          type: string
-        isPrivate:
-          type: boolean
-        contents:
-          type: array
-          items:
-            $ref: '#/components/schemas/ArticleContent'
-    ImportArticlesRequest:
-      type: object
-      required:
-      - articles
-      properties:
-        articles:
-          type: array
-          maxItems: 50
-          items:
-            $ref: '#/components/schemas/ArticleImport'
     Error:
       type: object
       properties:
         message:
           type: string
           description: Error message
-    Category:
-      type: object
-      properties:
-        correlationId:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
     ImportArticlesResponse:
       type: object
       properties:
@@ -409,26 +324,52 @@ components:
                 type: array
                 items:
                   type: string
-    ArticleImport:
+    ImportArticlesRequest:
       type: object
       required:
-      - correlationId
-      - contents
+      - articles
       properties:
-        correlationId:
-          type: string
-          description: External ID for the article used for idempotent upserts
-        categoryCorrelationId:
-          type: string
-          description: Correlation ID of the category this article belongs to
-        isPrivate:
-          type: boolean
-          description: Whether the article is private
-        contents:
+        articles:
           type: array
-          maxItems: 20
+          maxItems: 50
           items:
-            $ref: '#/components/schemas/ArticleContent'
+            $ref: '#/components/schemas/ArticleImport'
+    ArticleContent:
+      type: object
+      required:
+      - lang
+      - title
+      - content
+      properties:
+        lang:
+          type: string
+          description: Language code (e.g., en, fr, de)
+        title:
+          type: string
+          description: Article title
+        content:
+          type: string
+          description: Article body content
+        format:
+          type: string
+          enum:
+          - markdown
+          description: Content format
+        publishStatus:
+          type: string
+          enum:
+          - published
+          - unpublished
+          description: Publication status of the article
+    UpdateCategoryRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Updated category name
+        description:
+          type: string
+          description: Updated category description
     ImportCategoriesRequest:
       type: object
       required:
@@ -451,13 +392,51 @@ components:
               description:
                 type: string
                 description: Category description
+    Category:
+      type: object
+      properties:
+        correlationId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    ArticleImport:
+      type: object
+      required:
+      - correlationId
+      - contents
+      properties:
+        correlationId:
+          type: string
+          description: External ID for the article used for idempotent upserts
+        categoryCorrelationId:
+          type: string
+          description: Correlation ID of the category this article belongs to
+        isPrivate:
+          type: boolean
+          description: Whether the article is private
+        contents:
+          type: array
+          maxItems: 20
+          items:
+            $ref: '#/components/schemas/ArticleContent'
+    Article:
+      type: object
+      properties:
+        correlationId:
+          type: string
+        articleId:
+          type: number
+        categoryCorrelationId:
+          type: string
+        isPrivate:
+          type: boolean
+        contents:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArticleContent'
   responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Missing or invalid API key
       content:
@@ -470,6 +449,27 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    CorrelationId:
+      name: correlationId
+      in: path
+      required: true
+      description: External correlation ID for the resource
+      schema:
+        type: string
+    Lang:
+      name: lang
+      in: path
+      required: true
+      description: Language code (e.g., en, fr, de)
+      schema:
+        type: string
   securitySchemes:
     BearerAuth:
       type: http

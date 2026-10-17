@@ -44,6 +44,12 @@ paths:
           $ref: '#/components/responses/RateLimitExceeded'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
     CreateFeedbackRequest:
       type: object
       required:
@@ -63,12 +69,6 @@ components:
               type: string
               description: User agent string from the browser
           additionalProperties: true
-    Error:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Error message
   responses:
     RateLimitExceeded:
       description: Rate limit exceeded (5 requests per second)
