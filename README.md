@@ -1,4 +1,4 @@
-# Product Fruits (product-fruits)
+# Product Fruits
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,62 +66,161 @@
 
 Product Fruits is an AI-powered product adoption platform that enables SaaS teams to build in-app onboarding tours, checklists, tooltips, announcements, NPS surveys, and user segmentation without requiring developer resources. The platform offers a REST API and JavaScript API for programmatic control of onboarding flows, user identification, event tracking, knowledge base management, and feedback collection.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/product-fruits/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/product-fruits/refs/heads/main/apis.yml)
+**Areas:** Product Adoption · User Onboarding · In-App Guidance · Checklists · NPS Surveys · Announcements · User Segmentation · Software-as-a-Service
 
-## Tags
+## Product Fruits on APIs.io
 
-- Product Adoption
-- User Onboarding
-- In-App Guidance
-- Checklists
-- NPS Surveys
-- Announcements
-- User Segmentation
-- SaaS
+Everything profiled for Product Fruits is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/product-fruits/](https://apis.io/providers/product-fruits/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (4)
 
-- **Created:** 2026-06-13
-- **Modified:** 2026-06-13
+- [Product Fruits Events API](https://apis.io/apis/product-fruits/product-fruits-events-api/) — Custom event tracking
+- [Product Fruits Feedback API](https://apis.io/apis/product-fruits/product-fruits-feedback-api/) — User feedback submission
+- [Product Fruits Knowledge Base API](https://apis.io/apis/product-fruits/product-fruits-knowledge-base-api/) — Knowledge base article and category management
+- [Product Fruits Users API](https://apis.io/apis/product-fruits/product-fruits-users-api/) — User identification and management
 
-## APIs
+### Published properties
 
-### Product Fruits REST API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-REST API for managing users, tracking custom events, managing knowledge base content, collecting feedback, and controlling onboarding flows programmatically. Supports user identification (upsert), event tracking, survey responses, and knowledge base article and category management.
+#### Agentic access (1)
 
-- **Human URL:** [https://help.productfruits.com/en/article/rest-api-authentication](https://help.productfruits.com/en/article/rest-api-authentication)
-- **Base URL:** `https://api.productfruits.com`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Product Fruits Agentic Access](https://apis.io/agentic-access/product-fruits/product-fruits-agentic-access/)
 
-- REST API
-- User Identification
-- Event Tracking
-- Knowledge Base
-- Surveys
-- Feedback
+#### JSON Schema (5)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://help.productfruits.com/en/article/rest-api-authentication)
-- [OpenAPI](https://help.productfruits.com/en/article/rest-api-authentication) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Feedback Webhook Payload](https://apis.io/schemas/product-fruits/feedback-webhook-payload/)
+- [Identify User Request](https://apis.io/schemas/product-fruits/identify-user-request/)
+- [Import Articles Request](https://apis.io/schemas/product-fruits/import-articles-request/)
+- [Survey Webhook Payload](https://apis.io/schemas/product-fruits/survey-webhook-payload/)
+- [Track Event Request](https://apis.io/schemas/product-fruits/track-event-request/)
 
-## Common Properties
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Product Fruits Context](https://apis.io/jsonld/product-fruits/product-fruits/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Product Fruits API Vocabulary](https://apis.io/vocabularies/product-fruits/product-fruits-vocabulary/)
+
+#### Examples (6)
+
+Example requests and responses.
+
+- [Create Feedback](https://apis.io/examples/product-fruits/create-feedback/)
+- [Feedback Webhook Payload](https://apis.io/examples/product-fruits/feedback-webhook-payload/)
+- [Identify User](https://apis.io/examples/product-fruits/identify-user/)
+- [Import Articles](https://apis.io/examples/product-fruits/import-articles/)
+- [Survey Webhook Payload](https://apis.io/examples/product-fruits/survey-webhook-payload/)
+- [Track Event](https://apis.io/examples/product-fruits/track-event/)
+
+#### Collections (4)
+
+Postman and Open Collection request collections.
+
+- [Product Fruits REST Events API](https://apis.io/collections/product-fruits/open-product-fruits-events-api/)
+- [Product Fruits REST Events Feedback API](https://apis.io/collections/product-fruits/open-product-fruits-feedback-api/)
+- [Product Fruits REST Events Knowledge Base API](https://apis.io/collections/product-fruits/open-product-fruits-knowledge-base-api/)
+- [Product Fruits REST Events Users API](https://apis.io/collections/product-fruits/open-product-fruits-users-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Product Fruits — jsonschema rules](https://apis.io/rules/product-fruits/product-fruits-jsonschema-spectral-rules/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Product Fruits Authentication](https://apis.io/security/product-fruits/product-fruits-authentication/)
+- [Product Fruits Domain Security](https://apis.io/security/product-fruits/product-fruits-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Product Fruits Plans Pricing](https://apis.io/plans/product-fruits/product-fruits-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Product Fruits Rate Limits](https://apis.io/rate-limits/product-fruits/product-fruits-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Product Fruits Finops](https://apis.io/finops/product-fruits/product-fruits-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://productfruits.com)
 - [Documentation](https://help.productfruits.com)
-- [Git Hub Org](https://github.com/product-fruits)
-- [LinkedIn](https://www.linkedin.com/company/product-fruits)
-- [Blog](https://productfruits.com/blog)
 - [Pricing](https://productfruits.com/pricing)
-- [Status Page](https://status.productfruits.com)
-- [X (Twitter)](https://x.com/productfruits)
-- [Plans](plans/product-fruits-plans-pricing.yml)
-- [Rate Limits](rate-limits/product-fruits-rate-limits.yml)
-- [Fin Ops](finops/product-fruits-finops.yml)
+- [Blog](https://productfruits.com/blog)
+- [Status](https://status.productfruits.com)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 35.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 56.8 |
+| Contract governance | 9.8 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 23.8 |
+| Access clarity | 18.4 |
+
+**Agent readiness 22.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/product-fruits/](https://apis.io/providers/product-fruits/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Product Fruits: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/product-fruits/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
